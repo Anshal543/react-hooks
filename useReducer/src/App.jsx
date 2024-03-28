@@ -6,6 +6,7 @@ export const ACTIONS = {
   ADD_TODO: "add_todo",
   TOGGLE_TODO: "toggle_todo",
   DELETE_TODO: "delete_todo",
+  UPDATE_TODO: "update_todo",
 };
 function reducer(todos, action) {
   switch (action.type) {
@@ -20,6 +21,13 @@ function reducer(todos, action) {
       });
     case ACTIONS.DELETE_TODO:
       return todos.filter((todo) => todo.id !== action.payload.id);
+    case ACTIONS.UPDATE_TODO:
+      return todos.map((todo) => {
+        if (todo.id === action.payload.id) {
+          return { ...todo, name: action.payload.name };
+        }
+        return todo;
+      });
     default:
       return todos;
   }
